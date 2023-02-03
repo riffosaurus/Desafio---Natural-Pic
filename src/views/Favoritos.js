@@ -1,3 +1,10 @@
+//importamos el contexto
+import Context from "../context/Context";
+//importamos el hook useContext
+import { useContext } from "react";
+
+
+
 export default function Favoritos() {
   
   return (
