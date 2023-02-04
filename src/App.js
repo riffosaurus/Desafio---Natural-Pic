@@ -9,13 +9,11 @@ import Favoritos from "./views/Favoritos";
 export default function App() {
   const endpoint = "/fotos.json";
 
-  //useState para guardar los datos que se obtengan de la API en un array dentro de un estado global
-const [data, setData] = useState([]);
+    //useState para guardar los datos que se obtengan de la API en un array dentro de un estado global
+    const [data, setData] = useState([]);
 
 
-
-
-//función para obtener los datos de la API
+/* //función para obtener los datos de la API
 const fetchFotos = () => {
 fetch(endpoint)
 //despues del fetch se puede usar el método then para obtener la respuesta de la API en formato json
@@ -29,18 +27,39 @@ fetch(endpoint)
   console.log(error);
 });
 
-}
-//se hace un console.log para revisar que los datos se estén guardando en el estado global
-  console.log(data);
-;
+} */
 
-//creamos un objeto donde guardar el estado global
-  const context = { data, setData };
+const fetchFotos = async () => {
+  const response = await fetch(endpoint);
+  const datafotos = await response.json();
+ //filtramos los datos con un mape, manteniedo de photos: id, src, y liked
+  const fotosFiltradas = {
+    photos: datafotos.photos.map((photo) => { 
+      return {
+        id: photo.id,
+        src: photo.src,
+        liked: false,
+      };
+    }),
+    
+};
+  setData(fotosFiltradas);
+ 
+};
+
+
+console.log(data);
+
 
   //useEffect para que se ejecute una sola vez al cargar la página
   useEffect(() => {
     fetchFotos();
   }, []);
+
+
+
+//creamos un objeto donde guardar el estado global
+const context = { data, setData };
 
   return (
     <div className="App">

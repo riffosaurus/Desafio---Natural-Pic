@@ -10,19 +10,19 @@ export default function Home() {
 
   //consumimos el contexto
   const { data, setData } = useContext(Context);
-  //console.log para mostrar el id del primero objeto de data
-  //console.log(data.photos[0].src.large);
-
+  //console.log para mostrar el id del primero objeto de data, debido a typescript debemos usar el operador de opcional ? para que no marque error,
+  //con ? preguntamos si existe data.photos[0] y si existe, entonces ejecuta el código que sigue
+console.log(data.photos?.[0].id);
 
   return (
     <div className="galeria grid-columns-5 p-3">
 
       {/* recorremos el array de data y mostramos los datos en el navegador */}
-      {data.photos.map((photo) => {
+      {data.photos?.map((photo) => {
         return (
           <div className="galeria__item" key={photo.id}>
             <img src={photo.src.small} alt="" />
-            <Heart />
+            <Heart filled={photo.liked}/>
           </div>
         );
       }
