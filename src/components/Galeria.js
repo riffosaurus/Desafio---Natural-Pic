@@ -16,7 +16,19 @@ export default function Home() {
 
   return (
     <div className="galeria grid-columns-5 p-3">
-      <img src={data.photos[0].src.small} alt="" />
+
+      {/* recorremos el array de data y mostramos los datos en el navegador */}
+      {data.photos.map((photo) => {
+        return (
+          <div className="galeria__item" key={photo.id}>
+            <img src={photo.src.small} alt="" />
+            <Heart />
+          </div>
+        );
+      }
+        )
+      }
+   {/*    <img src={data.photos[0].src.small} alt="" /> */}
     </div>
   );
 }
