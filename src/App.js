@@ -12,6 +12,9 @@ export default function App() {
     //useState para guardar los datos que se obtengan de la API en un array dentro de un estado global
     const [data, setData] = useState([]);
 
+    //useState para tener un estado donde guardar las fotos favoritas
+    const [favoritos, setFavoritos] = useState([]);
+
 
 /* //función para obtener los datos de la API
 const fetchFotos = () => {
@@ -59,7 +62,8 @@ console.log(data);
 
 
 //creamos un objeto donde guardar el estado global
-const context = { data, setData };
+const context = { data, setData, favoritos, setFavoritos };
+
 
   return (
     <div className="App">
