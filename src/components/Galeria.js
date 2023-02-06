@@ -16,6 +16,11 @@ console.log(data.photos?.[0].id);
 
 //funcion para agregar foto a favoritos
 const addFavoritos = (id) => {
+  //condicion para revisar que la foto no este en favoritos. some() revisa si existe por lo menos un elemento en el array que cumpla con la condición
+  if(favoritos.some((photo) => photo.id === id)){
+    return;
+  }
+  else {
   //filtramos el array de data para obtener el objeto que tenga el id que se le pasa a la función
   const foto = data.photos?.filter((photo) => photo.id === id);
   //agregamos el objeto a favoritos
@@ -24,7 +29,8 @@ const addFavoritos = (id) => {
   foto[0].liked = true;
   //mostramos en consola el array de favoritos
   console.log(favoritos)
-}
+} 
+};
 
   return (
     <div className="galeria grid-columns-5 p-3">
