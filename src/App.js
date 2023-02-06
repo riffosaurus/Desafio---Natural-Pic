@@ -9,49 +9,35 @@ import Favoritos from "./views/Favoritos";
 export default function App() {
   const endpoint = "/fotos.json";
 
-    //useState para guardar los datos que se obtengan de la API en un array dentro de un estado global
-    const [data, setData] = useState([]);
+  //useState para guardar los datos que se obtengan de la API en un array dentro de un estado global
+  const [data, setData] = useState([]);
 
-    //useState para tener un estado donde guardar las fotos favoritas
-    const [favoritos, setFavoritos] = useState([]);
-
-
-/* //función para obtener los datos de la API
-const fetchFotos = () => {
-fetch(endpoint)
-//despues del fetch se puede usar el método then para obtener la respuesta de la API en formato json
-.then(response => {
-  return response.json();
-  //despues de tener los datos en formato json se puede usar el método then para guardar los datos en el estado global
-}).then(data => {
-  setData(data);
-  //si hay un error se puede usar el método catch para mostrarlo en consola
-}).catch(error => {
-  console.log(error);
-});
-
-} */
-
-const fetchFotos = async () => {
-  const response = await fetch(endpoint);
-  const datafotos = await response.json();
- //filtramos los datos con un mape, manteniedo de photos: id, src, y liked
-  const fotosFiltradas = {
-    photos: datafotos.photos.map((photo) => { 
-      return {
-        id: photo.id,
-        src: photo.src,
-        liked: false,
-      };
-    }),
-    
-};
-  setData(fotosFiltradas);
- 
-};
+  //useState para tener un estado donde guardar las fotos favoritas
+  const [favoritos, setFavoritos] = useState([]);
 
 
-console.log(data);
+  //funcion que obtiene los datos del json
+  const fetchFotos = async () => {
+    const response = await fetch(endpoint);
+    const datafotos = await response.json();
+    //filtramos los datos con un mape, manteniedo de photos: id, src, y liked
+    const fotosFiltradas = {
+      photos: datafotos.photos.map((photo) => {
+        return {
+          id: photo.id,
+          src: photo.src,
+          liked: false,
+        };
+      }),
+
+    };
+    //se setean los datos filtrados en el estado global
+    setData(fotosFiltradas);
+
+  };
+
+
+  console.log(data);
 
 
   //useEffect para que se ejecute una sola vez al cargar la página
@@ -61,22 +47,22 @@ console.log(data);
 
 
 
-//creamos un objeto donde guardar el estado global
-const context = { data, setData, favoritos, setFavoritos };
+  //creamos un objeto donde guardar el estado global
+  const context = { data, setData, favoritos, setFavoritos };
 
 
   return (
     <div className="App">
       {/* entregamos el objeto con los datos del estado global */}
       <Context.Provider value={context}>
-      <BrowserRouter>
-        <Navbar />
+        <BrowserRouter>
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/favoritos" element={<Favoritos />} />
-        </Routes>
-      </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/favoritos" element={<Favoritos />} />
+          </Routes>
+        </BrowserRouter>
       </Context.Provider>
     </div>
   );
