@@ -40,7 +40,7 @@ export default function Home() {
       {data.photos?.map((photo) => {
         return (
           <div className="foto" key={photo.id}
-            style={{ backgroundImage: `url(${photo.src.small})` }}
+            style={{ backgroundImage: `url(${photo.src.large})` }}
             //onClick para que al hacer click en la foto se ejecute la función
             onClick={() => addFavoritos(photo.id)}
           >
